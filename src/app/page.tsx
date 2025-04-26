@@ -7,7 +7,7 @@ export default async function Home() {
       <div className="mt-[-150px] text-[25vmin]">
         jenet ai
       </div>
-      <div className="text-[25px]" dangerouslySetInnerHTML={{ __html: tagLine }}/>
+      <div className="text-[2.5vh] text-center" dangerouslySetInnerHTML={{ __html: tagLine }}/>
     </div>
   )
 }
