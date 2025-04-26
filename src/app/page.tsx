@@ -1,5 +1,5 @@
 export default async function Home() {
-  const res = await fetch(`${process.env.BACKEND_ORIGIN}/tagline`);
+  const res = await fetch(`${process.env.BACKEND_API_URL}/tagline`);
   const tagLine = await res.text();
 
   return (
