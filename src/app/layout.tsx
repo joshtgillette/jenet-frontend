@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import TopNav from "./topnav";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -20,11 +19,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+      </head>
       <body
         className={inter.className}
       >
         <div>
-          <TopNav/>
           {children}
         </div>
       </body>
