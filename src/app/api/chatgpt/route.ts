@@ -25,7 +25,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: data.error?.message || 'OpenAI error' }, { status: openaiRes.status });
     }
     return NextResponse.json({ response: data.choices?.[0]?.message?.content || 'No response' });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || 'Server error' }, { status: 500 });
+  } catch (err) {
+    const errorMessage = err instanceof Error ? err.message : 'Server error';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

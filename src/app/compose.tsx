@@ -53,7 +53,7 @@ const Compose = () => {
       } else if (data.error) {
         setResponse('Error: ' + data.error);
       }
-    } catch (err) {
+    } catch {
       setResponse('Network error');
     }
   };

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Panel, { PanelData } from "./panel";
 import Compose from "./compose";
+import Image from "next/image";
 
 const MainPanelHeader = () => {
   const handleProfileClick = () => {
@@ -12,9 +13,11 @@ const MainPanelHeader = () => {
   };
   return (
     <div className="flex items-end gap-1.5 z-10 items-center">
-      <img
-        src="https://ui-avatars.com/api/?name=J+G&background=ececec&color=888888"
+      <Image
+        src="https://ui-avatars.com/api/?name=J+G&background=ececec&color=888888&format=png"
         alt="Profile"
+        width={36}
+        height={36}
         className="w-9 h-9 rounded-full border border-neutral-300 shadow-sm object-cover cursor-pointer"
         onClick={handleProfileClick}
       />
@@ -53,7 +56,7 @@ export default function Home() {
     const handler = () => addPanel({});
     window.addEventListener("add-panel", handler);
     return () => window.removeEventListener("add-panel", handler);
-  }, [nextId]);
+  }, [addPanel, nextId]);
 
   const removePanel = (id: number) =>
     setPanels((prev) => prev.filter((panel) => panel.id !== id));
