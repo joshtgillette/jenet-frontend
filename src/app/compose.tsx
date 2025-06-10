@@ -67,16 +67,16 @@ const Compose = () => {
 
   return (
     <div
-      className="absolute bottom-0 w-full max-w-175 pb-0.5 flex flex-col gap-4 z-50 items-center"
+      className="absolute bottom-0 w-full max-w-140 pb-0.5 flex flex-col gap-4 z-50 items-center"
     >
       {response && (
-        <div className="w-full max-h-[20lh] p-4 rounded-xl bg-white/60 backdrop-blur-md shadow-[0_2px_32px_0_rgba(80,120,255,0.28),0_0_16px_4px_rgba(80,120,255,0.18)] text-lg leading-relaxed placeholder-neutral-400 resize-none focus:outline-none focus:transition overflow-auto rounded-2xl bg-[#f4f6fa]/90 backdrop-blur-md ring-3 ring-indigo-400/30 hover:shadow-[0_4px_32px_0_rgba(80,120,255,0.30),0_0_16px_4px_rgba(80,120,255,0.22)] hover:ring-3 hover:ring-indigo-400/60 focus-within:shadow-[0_4px_32px_0_rgba(80,120,255,0.30),0_0_16px_4px_rgba(80,120,255,0.22)] focus-within:ring-3 focus-within:ring-indigo-400/60 transition-all duration-300">
-          <h1>{response}</h1>
+        <div className="w-full max-h-[20lh] p-4 text-lg leading-relaxed placeholder-neutral-400 rounded-xl resize-none overflow-auto backdrop-blur-md focus:outline-none bg-white/60 shadow-[0_0_8px_2px_rgba(80,120,255,0.20),0_0_16px_4px_rgba(80,120,255,0.18)] hover:bg-white/90 hover:shadow-[0_0_30px_2px_rgba(80,120,255,0.30),0_0_16px_4px_rgba(80,120,255,0.22)] focus-within:bg-white/90 focus-within:shadow-[0_0_30px_2px_rgba(80,120,255,0.30),0_0_16px_4px_rgba(80,120,255,0.22)] transition-all duration-300">
+          <h1 className="text-neutral-600">{response}</h1>
         </div>
       )}
       <textarea
         ref={textareaRef}
-        className="w-full max-h-[20lh] p-4 rounded-xl bg-white/60 backdrop-blur-md shadow-[0_2px_32px_0_rgba(80,120,255,0.28),0_0_16px_4px_rgba(80,120,255,0.18)] text-lg leading-relaxed placeholder-neutral-400 resize-none focus:outline-none focus:transition overflow-auto rounded-2xl bg-[#f4f6fa]/90 backdrop-blur-md ring-3 ring-indigo-400/30 hover:shadow-[0_4px_32px_0_rgba(80,120,255,0.30),0_0_16px_4px_rgba(80,120,255,0.22)] hover:ring-3 hover:ring-indigo-400/60 focus-within:shadow-[0_4px_32px_0_rgba(80,120,255,0.30),0_0_16px_4px_rgba(80,120,255,0.22)] focus-within:ring-3 focus-within:ring-indigo-400/60 transition-all duration-300"
+        className="w-full max-h-[20lh] p-4 text-lg text-indigo-900 placeholder-indigo-350 leading-relaxed rounded-xl resize-none overflow-auto backdrop-blur-md focus:outline-none bg-white/60 shadow-[0_0_8px_2px_rgba(80,120,255,0.20),0_0_16px_4px_rgba(80,120,255,0.18)] hover:bg-white/90 hover:shadow-[0_0_30px_2px_rgba(80,120,255,0.30),0_0_16px_4px_rgba(80,120,255,0.22)] focus-within:bg-white/90 focus-within:shadow-[0_0_30px_2px_rgba(80,120,255,0.30),0_0_16px_4px_rgba(80,120,255,0.22)] transition-all duration-300"
         placeholder="compose"
         value={value}
         onChange={handleChange}
