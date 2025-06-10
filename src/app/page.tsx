@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Panel, { PanelData } from "./panel";
-import Chat from "./chat";
+import Compose from "./compose";
 
 const MainPanelHeader = () => {
   const handleProfileClick = () => {
@@ -11,11 +11,11 @@ const MainPanelHeader = () => {
     }
   };
   return (
-    <div className="absolute top-4 left-4 flex items-end gap-1.5 z-10">
+    <div className="flex items-end gap-1.5 z-10 items-center">
       <img
         src="https://ui-avatars.com/api/?name=J+G&background=ececec&color=888888"
         alt="Profile"
-        className="w-7 h-7 rounded-full border border-neutral-300 shadow-sm object-cover cursor-pointer"
+        className="w-9 h-9 rounded-full border border-neutral-300 shadow-sm object-cover cursor-pointer"
         onClick={handleProfileClick}
       />
       <div className="flex items-end ml-1 gap-1">
@@ -59,23 +59,29 @@ export default function Home() {
     setPanels((prev) => prev.filter((panel) => panel.id !== id));
 
   return (
-    <div className="h-screen flex p-3 p-4 gap-0 gap-4 overflow-auto">
-      <Panel className="flex-1 relative !max-w-100" content={
-        <>
-          <MainPanelHeader />
-          {/* ...other main panel content can go here... */}
-        </>
-      } />
-      <div className="flex flex-1 gap-4 overflow-visible">
-        {panels.map((panel) => (
-          <Panel
-            key={panel.id}
-            className="flex-1"
-            content={panel.content || <BasePanel onClose={() => removePanel(panel.id)} />}
-          />
-        ))}
+    <div className="h-screen flex flex-col p-3 gap-1">
+      <div className="w-full flex-1 flex gap-4 p-1 overflow-auto">
+        <Panel className="flex-1 relative !max-w-100" content={
+          <>
+            {/* ...other main panel content can go here... */}
+          </>
+        } />
+        <div className="flex flex-1 gap-4">
+          {panels.map((panel) => (
+            <Panel
+              key={panel.id}
+              className="flex-1"
+              content={panel.content || <BasePanel onClose={() => removePanel(panel.id)} />}
+            />
+          ))}
+        </div>
       </div>
-      <Chat />
+      <div className="relative h-18 flex gap-4 p-1 overflow-visible">
+        <Panel content={<MainPanelHeader />} />
+        <div className="flex-1 flex items-center justify-center relative">
+          <Compose/>
+        </div>
+      </div>
     </div>
   );
 }
