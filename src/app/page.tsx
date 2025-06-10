@@ -12,16 +12,16 @@ const MainPanelHeader = () => {
     }
   };
   return (
-    <div className="flex items-end gap-1.5 z-10 items-center">
+    <div className="flex items-center gap-1.5 z-10">
       <Image
         src="https://ui-avatars.com/api/?name=J+G&background=ececec&color=888888&format=png"
         alt="Profile"
         width={36}
         height={36}
-        className="w-9 h-9 rounded-full border border-neutral-300 shadow-sm object-cover cursor-pointer"
+        className="rounded-full border border-neutral-300 shadow-sm object-cover cursor-pointer transition-all duration-300"
         onClick={handleProfileClick}
       />
-      <div className="flex items-end ml-1 gap-1">
+      <div className="flex items-end ml-1 gap-1 h-full">
         <span className="text-xs text-neutral-500">|</span>
         <span className="text-xs italic leading-tight text-neutral-500">home page</span>
       </div>
@@ -62,8 +62,8 @@ export default function Home() {
     setPanels((prev) => prev.filter((panel) => panel.id !== id));
 
   return (
-    <div className="h-screen flex flex-col p-3 gap-1">
-      <div className="w-full flex-1 flex gap-4 p-1 overflow-auto">
+    <div className="h-screen flex flex-col p-2 pb-3">
+      <div className="w-full flex-1 flex gap-4 p-2 overflow-auto">
         <Panel className="flex-1 relative !max-w-100" content={
           <>
             {/* ...other main panel content can go here... */}
@@ -79,9 +79,9 @@ export default function Home() {
           ))}
         </div>
       </div>
-      <div className="relative h-18 flex gap-4 p-1 overflow-visible">
+      <div className="relative h-18 flex gap-8 pt-2 pr-2 pl-2 overflow-visible">
         <Panel content={<MainPanelHeader />} />
-        <div className="flex-1 flex items-center justify-center relative">
+        <div className="flex-1 flex items-center relative justify-end">
           <Compose/>
         </div>
       </div>
