@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import "./globals.css";
+import Panel from "./panel";
 
 const INSTRUCTIONS = `
 Classify the input text into one of the following categories. The entire input text MUST represent the category, otherwise it is LANGUAGE. So for example "How's Jaden Gillette?" is LANGUAGE. Lastly, each newline in the text should be treated as separate inputs, with return values provided in a comma separated list.
@@ -19,7 +20,7 @@ AIRPORT: A U.S airport name or code
 LANGUAGE: Spoken language, catch-all category if no others are a match.
 `
 
-const Compose = () => {
+const Compose = ({ onFocus, onBlur }: { onFocus?: () => void; onBlur?: () => void }) => {
   const [value, setValue] = useState("");
   const [response, setResponse] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -61,29 +62,32 @@ const Compose = () => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
+      window.dispatchEvent(new CustomEvent('add-panel'));
       handleSend();
     }
   };
 
   return (
-    <div
-      className="absolute bottom-0 w-full max-w-140 pb-0.5 flex flex-col gap-4 z-50 items-center"
-    >
-      {response && (
-        <div className="w-full max-h-[20lh] p-4 text-lg leading-relaxed placeholder-neutral-400 rounded-xl resize-none overflow-auto backdrop-blur-md focus:outline-none bg-white/60 shadow-[0_0_8px_2px_rgba(80,120,255,0.20),0_0_16px_4px_rgba(80,120,255,0.18)] hover:bg-white/90 hover:shadow-[0_0_30px_2px_rgba(80,120,255,0.30),0_0_16px_4px_rgba(80,120,255,0.22)] focus-within:bg-white/90 focus-within:shadow-[0_0_30px_2px_rgba(80,120,255,0.30),0_0_16px_4px_rgba(80,120,255,0.22)] transition-all duration-300">
-          <h1 className="text-neutral-600">{response}</h1>
-        </div>
-      )}
-      <textarea
-        ref={textareaRef}
-        className="w-full max-h-[20lh] p-4 text-lg text-indigo-900 placeholder-indigo-350 leading-relaxed rounded-xl resize-none overflow-auto backdrop-blur-md focus:outline-none bg-white/60 shadow-[0_0_8px_2px_rgba(80,120,255,0.20),0_0_16px_4px_rgba(80,120,255,0.18)] hover:bg-white/90 hover:shadow-[0_0_30px_2px_rgba(80,120,255,0.30),0_0_16px_4px_rgba(80,120,255,0.22)] focus-within:bg-white/90 focus-within:shadow-[0_0_30px_2px_rgba(80,120,255,0.30),0_0_16px_4px_rgba(80,120,255,0.22)] transition-all duration-300"
-        placeholder="compose"
-        value={value}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        rows={1}
-      />
-    </div>
+    <Panel className="absolute bottom-0 z-50 w-[700px] flex flex-col items-center !p-0 rounded-2xl" content={
+      <>
+        {response && (
+          <div className="w-full flex-1 max-h-[20lh] p-4 text-lg leading-relaxed rounded-xl overflow-auto">
+            <h1 className="text-neutral-700 font-medium">{response}</h1>
+          </div>
+        )}
+        <textarea
+          ref={textareaRef}
+          className="w-full max-h-[20lh] p-4 text-lg text-neutral-600 leading-relaxed placeholder-neutral-500 rounded-xl resize-none outline-none overflow-auto transition-all duration-300"
+          placeholder="compose"
+          value={value}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          rows={1}
+        />
+      </>
+    } />
   );
 };
 
