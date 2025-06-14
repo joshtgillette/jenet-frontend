@@ -43,17 +43,13 @@ const Compose = ({ onFocus, onBlur }: { onFocus?: () => void; onBlur?: () => voi
   const handleSend = async () => {
     if (!value.trim()) return;
     try {
-      const res = await fetch('/api/chatgpt', {
+      const res = await fetch(`${process.env.BACKEND_API || 'https://api.jenet.ai'}/model`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: value, instructions: INSTRUCTIONS }),
+        body: JSON.stringify({ text: value, context: INSTRUCTIONS }),
       });
-      const data = await res.json();
-      if (data.response) {
-        setResponse(data.response);
-      } else if (data.error) {
-        setResponse('Error: ' + data.error);
-      }
+      const text = await res.text();
+      setResponse(text);
     } catch {
       setResponse('Network error');
     }
