@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import Pane from "./pane";
-import Panel, {PanelData} from "./panel";
+import Panel, { PanelData } from "./panel";
 import Compose from "./compose";
 
 export default function Home() {
   const [panels, setPanels] = useState<PanelData[]>([]);
   const [nextId, setNextId] = useState(1);
-  const [showCompose, setShowCompose] = useState(false);
-  const [isComposeFocused, setIsComposeFocused] = useState(false);
+  // const [showCompose, setShowCompose] = useState(false);
+  // const [isComposeFocused, setIsComposeFocused] = useState(false);
 
   const addPanel = (args: Omit<PanelData, "id"> = {}) => {
     setPanels((prev) => [...prev, { id: nextId, ...args }]);
@@ -22,20 +22,20 @@ export default function Home() {
   }, [addPanel, nextId]);
   const removePanel = (id: number) => setPanels((prev) => prev.filter((pane) => pane.id !== id));
 
-//   useEffect(() => {
-//     const handleMouseMove = (e: MouseEvent) => {
-//       if (isComposeFocused) return;
-//       const threshold = 80; // px from bottom
-//       const windowHeight = window.innerHeight;
-//       if (windowHeight - e.clientY < threshold) {
-//         setShowCompose(true);
-//       } else {
-//         setShowCompose(false);
-//       }
-//     };
-//     window.addEventListener('mousemove', handleMouseMove);
-//     return () => window.removeEventListener('mousemove', handleMouseMove);
-//   }, [isComposeFocused]);
+  //   useEffect(() => {
+  //     const handleMouseMove = (e: MouseEvent) => {
+  //       if (isComposeFocused) return;
+  //       const threshold = 80; // px from bottom
+  //       const windowHeight = window.innerHeight;
+  //       if (windowHeight - e.clientY < threshold) {
+  //         setShowCompose(true);
+  //       } else {
+  //         setShowCompose(false);
+  //       }
+  //     };
+  //     window.addEventListener('mousemove', handleMouseMove);
+  //     return () => window.removeEventListener('mousemove', handleMouseMove);
+  //   }, [isComposeFocused]);
 
   return (
     <div className="h-screen flex flex-col">
