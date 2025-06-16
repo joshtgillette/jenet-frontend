@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import "./globals.css";
-import Panel from "./panel";
+import Pane from "./pane";
 
 const INSTRUCTIONS = `
 Classify the input text into one of the following categories. The entire input text MUST represent the category, otherwise it is LANGUAGE. So for example "How's Jaden Gillette?" is LANGUAGE. Lastly, each newline in the text should be treated as separate inputs, with return values provided in a comma separated list.
@@ -58,13 +58,13 @@ const Compose = ({ onFocus, onBlur }: { onFocus?: () => void; onBlur?: () => voi
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      window.dispatchEvent(new CustomEvent('add-panel'));
+      window.dispatchEvent(new CustomEvent('add-pane'));
       handleSend();
     }
   };
 
   return (
-    <Panel className="absolute bottom-0 z-50 w-[700px] flex flex-col items-center !p-0 rounded-2xl" content={
+    <Pane className="absolute bottom-0 z-50 w-[700px] flex flex-col items-center !p-0 rounded-2xl" content={
       <>
         {response && (
           <div className="w-full flex-1 max-h-[20lh] p-4 text-lg leading-relaxed rounded-xl overflow-auto">
