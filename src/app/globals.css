@@ -41,5 +41,5 @@ body {
 }
 
 .glass {
-  @apply bg-white/60 shadow-[0_0_8px_2px_rgba(180,180,200,0.2)] ring-1 ring-white/10 border-white/30 transition-all duration-400 hover:bg-white/80 hover:shadow-[0_0_20px_4px_rgba(180,180,200,0.3)];
+  @apply flex bg-gray-100/60 backdrop-blur-sm rounded-xl ring-1 ring-gray-300 shadow-[0_0_8px_2px_rgba(180,180,200,0.2)] transition-all duration-400 hover:bg-gray-100/70 hover:backdrop-blur-md hover:shadow-[0_0_16px_2px_rgba(180,180,200,0.3)] focus-within:bg-gray-100/70 focus-within:backdrop-blur-md focus-within:shadow-[0_0_16px_2px_rgba(180,180,200,0.3)];
 }

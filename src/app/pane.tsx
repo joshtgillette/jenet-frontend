@@ -57,7 +57,7 @@ const Pane = ({
     return (
         <Panel className="flex-1 flex overflow-none !p-0" content={
             <>
-                <div className="glass absolute top-4 right-4 left-4 flex flex-col p-3 rounded-xl !bg-gray-100/60 !ring-gray-300 backdrop-blur-md">
+                <div className="glass absolute top-4 right-4 left-4 flex-col p-3">
                     <h1 className="text-lg">Josh Gillette</h1>
                     <h1 className="text-sm italic text-green-700">active now</h1>
                 </div>
@@ -81,7 +81,7 @@ const Pane = ({
                         </div>
                     ))}
                 </div>
-                <div className="glass absolute bottom-4 right-4 left-4 flex gap-2 p-4 items-center rounded-xl !bg-gray-100/60 !ring-gray-300 !backdrop-blur-md">
+                <div className="glass absolute bottom-4 right-4 left-4 gap-2 p-4 items-center">
                     <textarea
                         ref={textareaRef}
                         className="max-h-[20lh] flex-1 resize-none leading-releaxed outline-none overflow-auto"
