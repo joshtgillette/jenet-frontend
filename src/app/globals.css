@@ -34,8 +34,6 @@ body::before {
   pointer-events: none;
   /* Blurred, semi-transparent multi-color overlay for extra haze */
   background: linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(245,245,255,0.35) 40%, rgba(200,220,255,0.25) 100%);
-  backdrop-filter: blur(18px) saturate(1.2);
-  -webkit-backdrop-filter: blur(18px) saturate(1.2);
 }
 
 body {
@@ -43,5 +41,5 @@ body {
 }
 
 .glass {
-  @apply bg-white/60 shadow-[0_0_8px_2px_rgba(180,180,200,0.2)] ring-1 ring-white/10 backdrop-blur-lg border border-white/30 transition-all duration-400 hover:bg-white/80 hover:shadow-[0_0_20px_4px_rgba(180,180,200,0.3)];
+  @apply bg-white/60 shadow-[0_0_8px_2px_rgba(180,180,200,0.2)] ring-1 ring-white/10 border-white/30 transition-all duration-400 hover:bg-white/80 hover:shadow-[0_0_20px_4px_rgba(180,180,200,0.3)];
 }

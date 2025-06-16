@@ -1,0 +1,102 @@
+import Panel from "./panel";
+import React, { useRef, useEffect, useState } from "react";
+
+const randomMessages = [
+    { text: "Hey!", sender: "me" },
+    { text: "Did you see the game last night? It was absolutely incredible, I can't believe that final play!", sender: "other" },
+    { text: "I'll be there in 10 minutes.", sender: "me" },
+    { text: "Can you send me the file?", sender: "other" },
+    { text: "That sounds awesome!", sender: "me" },
+    { text: "Let me know if you need anything.", sender: "other" },
+    { text: "What time is the meeting?", sender: "me" },
+    { text: "Thanks for your help!", sender: "other" },
+    { text: "I'll call you later.", sender: "me" },
+    { text: "No worries, take your time.", sender: "other" },
+    { text: "Haha, that's hilarious!", sender: "me" },
+    { text: "See you soon!", sender: "other" },
+    { text: "Just wanted to check in and see how everything is going on your end. If you need any support, let me know.", sender: "me" },
+    { text: "Yes.", sender: "other" },
+    { text: "No.", sender: "me" },
+    { text: "Okay, I'll get started on that and update you by the end of the day.", sender: "other" },
+    { text: "Here's the link to the document you asked for: https://example.com/your-doc.pdf", sender: "me" },
+    { text: "Good morning! Hope you have a great day ahead.", sender: "other" },
+    { text: "Sure, I can help with that. What exactly do you need?", sender: "me" },
+    { text: "This is a really long message just to test how the UI handles wrapping and multiple lines. Sometimes people send paragraphs instead of short texts, so it's important to make sure the chat window looks good no matter what. Let me know if you see any weirdness!", sender: "other" }
+];
+
+const Pane = ({
+    onClose
+}: {
+    onClose: () => void;
+}) => {
+    const messagesContainerRef = useRef<HTMLDivElement>(null);
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const [value, setValue] = useState("");
+
+    useEffect(() => {
+        // Scroll messages to the bottom/most recent
+        if (messagesContainerRef.current) {
+            messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+        }
+
+        // Adjust text area size for content
+        if (textareaRef.current) {
+            textareaRef.current.style.height = "auto";
+            textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+        }
+    }, []);
+
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setValue(e.target.value);
+        if (textareaRef.current) {
+            textareaRef.current.style.height = "auto";
+            textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+        }
+    }
+
+    return (
+        <Panel className="flex-1 flex overflow-none !p-0" content={
+            <>
+                <div className="glass absolute top-4 right-4 left-4 flex flex-col p-3 rounded-xl !bg-gray-100/60 !ring-gray-300 backdrop-blur-md">
+                    <h1 className="text-lg">Josh Gillette</h1>
+                    <h1 className="text-sm italic text-green-700">active now</h1>
+                </div>
+                <div
+                    ref={messagesContainerRef}
+                    className="w-full flex flex-col gap-4 pt-28 pr-4 pb-22 pl-4 overflow-auto"
+                    onClick={onClose}>
+                    {randomMessages.map((msg, i) => (
+                        <div
+                            key={i}
+                            className={`w-full flex ${msg.sender === 'me' ? 'justify-end' : 'justify-start'}`}
+                        >
+                            <h1
+                                className={`max-w-[75%] px-3.5 py-2.5 text-base break-words rounded-xl ${msg.sender === 'me'
+                                    ? 'bg-[rgb(237,237,237)]/60 text-gray-800 ring-1 ring-gray-200'
+                                    : 'bg-[rgb(220,220,220)]/10 text-gray-900 ring-1 ring-gray-200'
+                                    }`}
+                            >
+                                {msg.text}
+                            </h1>
+                        </div>
+                    ))}
+                </div>
+                <div className="glass absolute bottom-4 right-4 left-4 flex gap-2 p-4 items-center rounded-xl !bg-gray-100/60 !ring-gray-300 !backdrop-blur-md">
+                    <textarea
+                        ref={textareaRef}
+                        className="max-h-[20lh] flex-1 resize-none leading-releaxed outline-none overflow-auto"
+                        placeholder="start talking"
+                        rows={1}
+                        onChange={handleChange} />
+                    <button
+                        className="flex items-center text-gray-600 hover:text-black text-xl font-bold focus:outline-none cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity self-end"
+                        aria-label="Send message">
+                        <span className="material-icons">arrow_upward</span>
+                    </button>
+                </div>
+            </>
+        } />
+    );
+}
+
+export default Pane;
