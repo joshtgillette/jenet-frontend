@@ -15,7 +15,7 @@ export default function Home() {
     setPanels((prev) => [...prev, { id: nextId, ...args }]);
     setNextId((id) => id + 1);
   };
-  const handler = () => addPanel({});
+  const handler = () => addPanel();
   useEffect(() => {
     window.addEventListener("add-pane", handler);
     return () => window.removeEventListener("add-pane", handler);
@@ -41,7 +41,7 @@ export default function Home() {
     <div className="h-screen flex flex-col">
       <div className="w-full flex-1 flex gap-4 p-4 overflow-auto">
         <Pane className="flex-1 relative !max-w-100" content={
-          <div className="flex-1" onClick={() => addPanel()}>
+          <div className="flex-1" onClick={() => addPanel({content: <>Josh Gillette</>})}>
             {/* ...other main pane content can go here... */}
           </div>
         } />
@@ -50,6 +50,7 @@ export default function Home() {
             <Panel
               key={panel.id}
               onClose={() => removePanel(panel.id)}
+              content={panel.content}
             />
           ))}
         </div>

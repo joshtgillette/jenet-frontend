@@ -31,9 +31,11 @@ export type PanelData = {
 };
 
 const Panel = ({
-  onClose
+  onClose,
+  content
 }: {
   onClose: () => void;
+  content?: React.ReactNode;
 }) => {
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -64,8 +66,8 @@ const Panel = ({
     <Pane className="flex-1 flex overflow-none !p-0" content={
       <>
         <div className="glass absolute top-4 right-4 left-4 flex-col p-3">
-          <h1 className="text-lg">Josh Gillette</h1>
-          <h1 className="text-sm italic text-green-700">active now</h1>
+          <h1 className="text-lg">{content}</h1>
+          <h1 className="text-sm italic text-green-700 mt-0 ml-0.5">active now</h1>
         </div>
         <div
           ref={messagesContainerRef}
@@ -76,14 +78,14 @@ const Panel = ({
               key={i}
               className={`w-full flex ${msg.sender === 'me' ? 'justify-end' : 'justify-start'}`}
             >
-              <h1
+              <div
                 className={`max-w-[75%] px-3.5 py-2.5 text-base break-words rounded-xl ${msg.sender === 'me'
                   ? 'bg-[rgb(237,237,237)]/60 text-gray-800 ring-1 ring-gray-200'
                   : 'bg-[rgb(220,220,220)]/10 text-gray-900 ring-1 ring-gray-200'
                   }`}
               >
-                {msg.text}
-              </h1>
+                <h1>{msg.text}</h1>
+              </div>
             </div>
           ))}
         </div>
