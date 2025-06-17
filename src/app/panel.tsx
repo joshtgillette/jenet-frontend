@@ -37,6 +37,7 @@ const Panel = ({
   onClose: () => void;
   content?: React.ReactNode;
 }) => {
+  const messagesHeaderRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [value, setValue] = useState("");
@@ -44,7 +45,13 @@ const Panel = ({
   useEffect(() => {
     // Scroll messages to the bottom/most recent
     if (messagesContainerRef.current) {
+      // Scroll to bottom
       messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+
+      // Use top padding to fit dynamic header
+      if (messagesHeaderRef.current) {
+        messagesContainerRef.current.style.paddingTop = `${messagesHeaderRef.current.offsetHeight + 40}px`;
+      }
     }
 
     // Adjust text area size for content
@@ -59,19 +66,34 @@ const Panel = ({
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+
+      if (messagesContainerRef.current) {
+        if (textareaRef.current) {
+          // Use bottom padding to fit dynamic textarea
+          messagesContainerRef.current.style.paddingBottom = `${textareaRef.current.offsetHeight + 70}px`;
+
+          // If scrolled to bottom, maintain state
+          if (messagesContainerRef.current.scrollTop +
+              messagesContainerRef.current.clientHeight >= messagesContainerRef.current.scrollHeight - 100) {
+            messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+          }
+        }
+      }
     }
   }
 
   return (
     <Pane className="flex-1 flex overflow-none !p-0" content={
       <>
-        <div className="glass absolute top-4 right-4 left-4 flex-col p-3">
+        <div
+          ref={messagesHeaderRef}
+          className="glass absolute top-4 right-4 left-4 flex-col p-3">
           <h1 className="text-lg">{content}</h1>
           <h1 className="text-sm italic text-green-700 mt-0 ml-0.5">active now</h1>
         </div>
         <div
           ref={messagesContainerRef}
-          className="w-full flex flex-col gap-4 pt-28 pr-4 pb-22 pl-4 overflow-auto"
+          className="w-full flex flex-col gap-4 pr-4 pb-[95px] pl-4 overflow-auto"
           onClick={onClose}>
           {randomMessages.map((msg, i) => (
             <div
