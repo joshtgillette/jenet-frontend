@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Pane from "./pane";
 import Panel, { PanelData } from "./panel";
-import Compose from "./compose";
+// import Compose from "./compose";
 
 export default function Home() {
   const [panels, setPanels] = useState<PanelData[]>([]);
@@ -15,8 +15,8 @@ export default function Home() {
     setPanels((prev) => [...prev, { id: nextId, ...args }]);
     setNextId((id) => id + 1);
   };
-  const handler = () => addPanel();
   useEffect(() => {
+    const handler = () => addPanel();
     window.addEventListener("add-pane", handler);
     return () => window.removeEventListener("add-pane", handler);
   }, [addPanel, nextId]);

@@ -1,5 +1,5 @@
 import Pane from "./pane";
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 
 const randomMessages = [
   { text: "Hey!", sender: "me" },
@@ -40,7 +40,7 @@ const Panel = ({
   const messagesHeaderRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [value, setValue] = useState("");
+  // const [value, setValue] = useState("");
 
   useEffect(() => {
     // Scroll messages to the bottom/most recent
@@ -61,8 +61,7 @@ const Panel = ({
     }
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setValue(e.target.value);
+  const handleChange = () => {
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto";
       textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
