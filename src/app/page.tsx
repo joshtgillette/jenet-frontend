@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Pane from "./pane";
-import Panel, { PanelData } from "./panel";
+import Pane from "./components/pane";
+import Panel, { PanelData } from "./components/panel";
 // import Compose from "./compose";
 
 export default function Home() {

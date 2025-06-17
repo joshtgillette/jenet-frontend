@@ -1,4 +1,4 @@
-import "./globals.css";
+import "../globals.css";
 
 const Pane = ({ className, content }: { className?: string, content?: React.ReactNode, }) => {
   return (
