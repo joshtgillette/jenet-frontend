@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback} from "react";
 import Pane from "./components/pane";
 import Panel, { PanelData } from "./components/panel";
 // import Compose from "./compose";
@@ -11,10 +11,11 @@ export default function Home() {
   // const [showCompose, setShowCompose] = useState(false);
   // const [isComposeFocused, setIsComposeFocused] = useState(false);
 
-  const addPanel = (args: Omit<PanelData, "id"> = {}) => {
+  const addPanel = useCallback((args: Omit<PanelData, "id"> = {}) => {
     setPanels((prev) => [...prev, { id: nextId, ...args }]);
     setNextId((id) => id + 1);
-  };
+  }, [nextId])
+
   useEffect(() => {
     const handler = () => addPanel();
     window.addEventListener("add-pane", handler);

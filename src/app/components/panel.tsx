@@ -1,5 +1,5 @@
 import Pane from "./pane";
-import React, { useRef, useEffect, useState, useCallback } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 const INSTRUCTIONS = `
 Categorize the input text into one of the following groups. The entire input text MUST represent the category, otherwise it is TEXT. If the input merely contains text that corresponds to a category, but there is additional unclassified text, then that input should be labeled as TEXT. So for example "How's Jaden Gillette?" or "Josh Gillette at 9:00am" is TEXT. Lastly, newlines (\\n) in the input indicate separate inputs, with each corresponnding classification provided in a comma separated list. ONLY newlines will result in multiple classifications, and these classifications should be returned in a comma separated list.
@@ -70,7 +70,7 @@ const Panel = ({
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/message`)
       .then(res => res.json())
       .then((res: [string, string[]]) => {
-        const newMessages: Message[] = Object.entries(res).map(([key, value]) => ({
+        const newMessages: Message[] = Object.entries(res).map(([, value]) => ({
           text: value[1],
           sender: value[0]
         }));
@@ -106,33 +106,30 @@ const Panel = ({
   // Monitor composition textarea to perform model query
   useEffect(() => {
     const handler = setTimeout(() => {
-      queryModel();
-    }, 500);
-
-    return () => clearTimeout(handler);
-  }, [composeText]);
-  const queryModel = async () => {
-    if (!composeText) {
-      setModelText("");
-      return;
-    }
-
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/model`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: composeText, context: INSTRUCTIONS }),
-    })
-    .then(res => res.text())
-    .then(data => {
-      var classes = data.split(",")
-      if (classes.length == 1 && classes[0] == "TEXT") {
+      if (!composeText) {
         setModelText("");
         return;
       }
 
-      setModelText(data)
-    })
-  }
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_API}/model`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: composeText, context: INSTRUCTIONS }),
+      })
+      .then(res => res.text())
+      .then(data => {
+        const classes = data.split(",")
+        if (classes.length == 1 && classes[0] == "TEXT") {
+          setModelText("");
+          return;
+        }
+
+        setModelText(data)
+      })
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [composeText]);
 
   // Send a message to the backend and append to view
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
