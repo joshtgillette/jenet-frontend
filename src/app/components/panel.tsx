@@ -91,7 +91,7 @@ const Panel = ({
       if (messagesContainerRef.current) {
         if (textareaRef.current) {
           // Use bottom padding to fit dynamic textarea
-          messagesContainerRef.current.style.paddingBottom = `${textareaRef.current.offsetHeight + 70}px`;
+          messagesContainerRef.current.style.paddingBottom = `${textareaRef.current.offsetHeight + 71}px`;
 
           // If scrolled to bottom, maintain state
           if (messagesContainerRef.current.scrollTop +
