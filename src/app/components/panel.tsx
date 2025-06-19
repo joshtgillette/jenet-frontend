@@ -116,16 +116,16 @@ const Panel = ({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: composeText, context: INSTRUCTIONS }),
       })
-      .then(res => res.text())
-      .then(data => {
-        const classes = data.split(",")
-        if (classes.length == 1 && classes[0] == "TEXT") {
-          setModelText("");
-          return;
-        }
+        .then(res => res.text())
+        .then(data => {
+          const classes = data.split(",")
+          if (classes.length == 1 && classes[0] == "TEXT") {
+            setModelText("");
+            return;
+          }
 
-        setModelText(data)
-      })
+          setModelText(data)
+        })
     }, 500);
 
     return () => clearTimeout(handler);
@@ -209,12 +209,12 @@ const Panel = ({
             rows={1}
             onChange={handleChange}
             onKeyDown={handleKeyDown} />
-            <button
-              className={`flex items-center text-gray-600 hover:text-black text-xl font-bold focus:outline-none cursor-pointer ${composeText ? "group-hover:opacity-100" : "opacity-0"} transition-opacity self-end`}
-              aria-label="Send message"
-              onClick={sendMessage}>
-              <span className="material-icons">arrow_upward</span>
-            </button>
+          <button
+            className={`flex items-center text-gray-600 hover:text-black text-xl font-bold focus:outline-none cursor-pointer ${composeText ? "group-hover:opacity-100" : "opacity-0"} transition-opacity self-end`}
+            aria-label="Send message"
+            onClick={sendMessage}>
+            <span className="material-icons">arrow_upward</span>
+          </button>
         </div>
       </>
     } />

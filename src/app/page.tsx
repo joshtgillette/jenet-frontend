@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback} from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Pane from "./components/pane";
 import Panel, { PanelData } from "./components/panel";
 // import Compose from "./compose";
@@ -42,7 +42,7 @@ export default function Home() {
     <div className="h-screen flex flex-col">
       <div className="w-full flex-1 flex gap-4 p-4 overflow-auto">
         <Pane className="flex-1 relative !max-w-100" content={
-          <div className="flex-1" onClick={() => addPanel({content: <>Josh Gillette</>})}>
+          <div className="flex-1" onClick={() => addPanel({ content: <>Josh Gillette</> })}>
             {/* ...other main pane content can go here... */}
           </div>
         } />
