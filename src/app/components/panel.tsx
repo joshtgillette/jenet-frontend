@@ -1,5 +1,7 @@
 import Pane from "./pane";
 import React, { useRef, useEffect, useState } from "react";
+import { BuildText } from "./samples/text"
+import { BuildEvent } from "./samples/event"
 
 const INSTRUCTIONS = `
 Categorize the input text into one of the following groups. The entire input text MUST represent the category, otherwise it is TEXT. If the input merely contains text that corresponds to a category, but there is additional unclassified text, then that input should be labeled as TEXT. So for example "How's Jaden Gillette?" or "Josh Gillette at 9:00am" is TEXT. Lastly, newlines (\\n) in the input indicate separate inputs, with each corresponnding classification provided in a comma separated list. ONLY newlines will result in multiple classifications, and these classifications should be returned in a comma separated list.
@@ -41,7 +43,8 @@ const Panel = ({
   const [messages, setMessages] = useState<Message[]>([]);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [composeText, setComposeText] = useState("");
-  const [modelText, setModelText] = useState("");
+  const [sample, setSample] = useState<React.ReactNode>(null);
+
   // const [value, setValue] = useState("");
 
   useEffect(() => {
@@ -107,7 +110,7 @@ const Panel = ({
   useEffect(() => {
     const handler = setTimeout(() => {
       if (!composeText) {
-        setModelText("");
+        setSample("");
         return;
       }
 
@@ -117,19 +120,29 @@ const Panel = ({
         body: JSON.stringify({ text: composeText, context: INSTRUCTIONS }),
       })
         .then(res => res.text())
-        .then(data => {
-          const classes = data.split(",")
-          if (classes.length == 1 && classes[0] == "TEXT") {
-            setModelText("");
-            return;
-          }
-
-          setModelText(data)
-        })
+        .then(res => buildSamples(res.split(",")))
     }, 500);
 
     return () => clearTimeout(handler);
   }, [composeText]);
+  const buildSamples = (classes: string[]) => {
+    const inputs = composeText.split("\n")
+
+    const data: { [key: string]: string[] } = {};
+    for (let i = 0; i < classes.length; i++) {
+      if (data[classes[i]]) {
+        data[classes[i]].push(inputs[i]);
+      } else {
+        data[classes[i]] = [inputs[i]];
+      }
+    }
+
+    let samp = null;
+    if ((samp = BuildText(data))) { }
+    else if ((samp = BuildEvent(data))) { }
+
+    setSample(samp)
+  }
 
   // Send a message to the backend and append to view
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -190,12 +203,12 @@ const Panel = ({
               </div>
             </div>
           ))}
-          {modelText && (
+          {sample && (
             <div className="right-10 mb-[-15px] w-full flex justify-end">
               <div
                 className="glass max-w-[75%] mr-3 px-3.5 py-2.5 text-base break-words"
               >
-                <h1>{modelText}</h1>
+                {sample}
               </div>
             </div>
           )}
