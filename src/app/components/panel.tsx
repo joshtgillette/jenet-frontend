@@ -214,8 +214,8 @@ const Panel = ({
                 <div
                   className={`max-w-[75%] px-3.5 py-2.5 text-base break-words rounded-xl ${
                     msg.sender === "me"
-                      ? "bg-[rgb(237,237,237)]/60 text-gray-800 ring-1 ring-gray-200"
-                      : "bg-[rgb(220,220,220)]/10 text-gray-900 ring-1 ring-gray-200"
+                      ? "bg-[rgb(237,237,237)]/60 dark:bg-[rgb(50,50,50)]/60 ring-1 ring-gray-200 dark:ring-zinc-800"
+                      : "bg-[rgb(220,220,220)]/10 dark:bg-[rgb(30,30,30)]/60 ring-1 ring-gray-200 dark:ring-zinc-800"
                   }`}
                 >
                   <h1>{msg.text}</h1>
@@ -241,7 +241,7 @@ const Panel = ({
               onKeyDown={handleKeyDown}
             />
             <button
-              className={`flex items-center text-gray-600 hover:text-black text-xl font-bold focus:outline-none cursor-pointer ${composeText ? "group-hover:opacity-100" : "opacity-0"} transition-opacity self-end`}
+              className={`flex items-center text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-gray-100 text-xl font-bold focus:outline-none cursor-pointer ${composeText ? "group-hover:opacity-100" : "opacity-0"} transition-opacity self-end`}
               aria-label="Send message"
               onClick={sendMessage}
             >
