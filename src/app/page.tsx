@@ -11,17 +11,21 @@ export default function Home() {
   // const [showCompose, setShowCompose] = useState(false);
   // const [isComposeFocused, setIsComposeFocused] = useState(false);
 
-  const addPanel = useCallback((args: Omit<PanelData, "id"> = {}) => {
-    setPanels((prev) => [...prev, { id: nextId, ...args }]);
-    setNextId((id) => id + 1);
-  }, [nextId])
+  const addPanel = useCallback(
+    (args: Omit<PanelData, "id"> = {}) => {
+      setPanels((prev) => [...prev, { id: nextId, ...args }]);
+      setNextId((id) => id + 1);
+    },
+    [nextId],
+  );
 
   useEffect(() => {
     const handler = () => addPanel();
     window.addEventListener("add-pane", handler);
     return () => window.removeEventListener("add-pane", handler);
   }, [addPanel, nextId]);
-  const removePanel = (id: number) => setPanels((prev) => prev.filter((pane) => pane.id !== id));
+  const removePanel = (id: number) =>
+    setPanels((prev) => prev.filter((pane) => pane.id !== id));
 
   //   useEffect(() => {
   //     const handleMouseMove = (e: MouseEvent) => {
@@ -41,11 +45,17 @@ export default function Home() {
   return (
     <div className="h-screen flex flex-col">
       <div className="w-full flex-1 flex gap-4 p-4 overflow-auto">
-        <Pane className="flex-1 relative !max-w-100" content={
-          <div className="flex-1" onClick={() => addPanel({ content: <>Josh Gillette</> })}>
-            {/* ...other main pane content can go here... */}
-          </div>
-        } />
+        <Pane
+          className="flex-1 relative !max-w-100"
+          content={
+            <div
+              className="flex-1"
+              onClick={() => addPanel({ content: <>Josh Gillette</> })}
+            >
+              {/* ...other main pane content can go here... */}
+            </div>
+          }
+        />
         <div className="flex flex-1 gap-4">
           {panels.map((panel) => (
             <Panel

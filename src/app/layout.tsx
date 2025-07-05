@@ -5,11 +5,11 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ['400']
-})
+  weight: ["400"],
+});
 
 export const metadata: Metadata = {
-  title: "jenet"
+  title: "jenet",
 };
 
 export default function RootLayout({
@@ -20,14 +20,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        ></link>
       </head>
-      <body
-        className={inter.className}
-      >
-        <div>
-          {children}
-        </div>
+      <body className={inter.className}>
+        <div>{children}</div>
       </body>
     </html>
   );

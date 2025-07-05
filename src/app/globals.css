@@ -21,19 +21,25 @@
 
 body {
   /* Hazy, multi-color, light Unsplash background */
-  background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') center center / cover no-repeat fixed;
+  background: url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80")
+    center center / cover no-repeat fixed;
   min-height: 100vh;
   position: relative;
 }
 
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
   /* Blurred, semi-transparent multi-color overlay for extra haze */
-  background: linear-gradient(135deg, rgba(255,255,255,0.55) 0%, rgba(245,245,255,0.35) 40%, rgba(200,220,255,0.25) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(245, 245, 255, 0.35) 40%,
+    rgba(200, 220, 255, 0.25) 100%
+  );
 }
 
 body {
