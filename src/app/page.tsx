@@ -43,10 +43,10 @@ export default function Home() {
   //   }, [isComposeFocused]);
 
   return (
-    <div className="h-screen flex flex-col">
-      <div className="w-full flex-1 flex gap-4 p-4 overflow-auto">
+    <div className="h-screen flex">
+      <div className="w-full flex-1 flex flex-col sm:flex-row gap-4 p-4 overflow-auto">
         <Pane
-          className="flex-1 relative !max-w-100"
+          className="sm:!max-w-100"
           content={
             <div
               className="flex-1"
@@ -56,15 +56,14 @@ export default function Home() {
             </div>
           }
         />
-        <div className="flex flex-1 gap-4">
-          {panels.map((panel) => (
-            <Panel
-              key={panel.id}
-              onClose={() => removePanel(panel.id)}
-              content={panel.content}
-            />
-          ))}
-        </div>
+        {panels.map((panel) => (
+          <Panel
+            key={panel.id}
+            onClose={() => removePanel(panel.id)}
+            className={panel.className}
+            content={panel.content}
+          />
+        ))}
       </div>
       {/* <div
         className={`fixed left-1/2 bottom-6 -translate-x-1/2 z-30 w-full flex justify-center items-center gap-4 transition-all duration-500 ease-in-out

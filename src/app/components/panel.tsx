@@ -189,7 +189,7 @@ const Panel = ({
 
   return (
     <Pane
-      className="flex-1 flex overflow-none !p-0"
+      className="sm:flex-1 overflow-none !p-0"
       content={
         <>
           <div
