@@ -127,30 +127,30 @@ const Panel = ({
         body: JSON.stringify({ text: composeText, context: INSTRUCTIONS }),
       })
         .then((res) => res.text())
-        .then((res) => buildSamples(res.split(",")));
+        .then((res) => {
+          const classes = res.split(",");
+          const inputs = composeText.split("\n");
+
+          const data: { [key: string]: string[] } = {};
+          for (let i = 0; i < classes.length; i++) {
+            if (data[classes[i]]) {
+              data[classes[i]].push(inputs[i]);
+            } else {
+              data[classes[i]] = [inputs[i]];
+            }
+          }
+
+          let samp = null;
+          if ((samp = BuildText(data))) {
+          } else if ((samp = BuildEvent(data))) {
+          }
+
+          setSample(samp);
+        });
     }, 500);
 
     return () => clearTimeout(handler);
   }, [composeText]);
-  const buildSamples = (classes: string[]) => {
-    const inputs = composeText.split("\n");
-
-    const data: { [key: string]: string[] } = {};
-    for (let i = 0; i < classes.length; i++) {
-      if (data[classes[i]]) {
-        data[classes[i]].push(inputs[i]);
-      } else {
-        data[classes[i]] = [inputs[i]];
-      }
-    }
-
-    let samp = null;
-    if ((samp = BuildText(data))) {
-    } else if ((samp = BuildEvent(data))) {
-    }
-
-    setSample(samp);
-  };
 
   // Send a message to the backend and append to view
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
