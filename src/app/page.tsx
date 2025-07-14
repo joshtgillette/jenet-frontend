@@ -43,7 +43,7 @@ export default function Home() {
   //   }, [isComposeFocused]);
 
   return (
-    <div className="h-[100dvh] flex">
+    <div className="min-h-[100dvh] flex">
       <div className="w-full flex-1 flex flex-col sm:flex-row gap-4 px-3 py-2 sm:p-4 overflow-auto">
         <Pane
           className="sm:!max-w-100"
