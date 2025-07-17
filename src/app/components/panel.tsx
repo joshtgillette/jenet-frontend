@@ -128,8 +128,14 @@ const Panel = ({
       })
         .then((res) => res.text())
         .then((res) => {
-          const classes = res.split(",");
-          const inputs = composeText.split("\n");
+          const classes = res
+            .split(",")
+            .map((item) => item.trim())
+            .filter((item) => item.length > 0);
+          const inputs = composeText
+            .split("\n")
+            .map((item) => item.trim())
+            .filter((item) => item.length > 0);
 
           const data: { [key: string]: string[] } = {};
           for (let i = 0; i < classes.length; i++) {

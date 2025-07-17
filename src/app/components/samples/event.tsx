@@ -1,20 +1,10 @@
 import "./../../globals.css";
 
 export function BuildEvent(data: { [key: string]: string[] }) {
-  console.log(typeof data);
-  console.log(data["DATE"]);
   if (!data["TEXT"] || !data["DATE"] || !data["TIME"] || !data["ADDRESS"]) {
-    console.log(
-      "BAD",
-      !data["TEXT"],
-      !data["DATE"],
-      !data["TIME"],
-      !data["ADDRESS"],
-    );
     return null;
   }
 
-  console.log("RETURNING");
   return (
     <Event
       text={data["TEXT"][0]}
